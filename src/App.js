@@ -1,18 +1,58 @@
-improt Feedback from './components/Feedback/Feedback.js';
+import React, { Component } from "react";
+import Section from "./components/Section/Section.jsx";
+import FeedbackOptions from "./components/Feedback/FeedbackOptions.jsx";
 
-export default function App() {
-  return (
-    <div>
-      <h2>Please leave feedback</h2>
-      <button>Good</button>
-      <button>Neutral</button>
-      <button>Bad</button>
+class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
-      <h2>Statisics</h2>
+  setActiveItem = (item) => {
+    this.setState((PrevState) => ({
+      [item]: PrevState[item] + 1,
+    }));
+  };
 
-      <Feedback
-       
-      />
-    </div>
-  );
+  getNameOfItem = (name) => {
+    return `${name.slice(0, 1).toUpperCase()}${name.slice(1).toLowerCase()}`;
+  };
+
+  countTotalFeedback = () => {
+    return Object.values(this.state).reduce((acc, item) => acc + item, 0);
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    return Math.round((this.state.good * 100) / this.countTotalFeedback());
+  };
+
+  render() {
+    return (
+      <>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={this.state}
+            onLeaveFeedback={this.setActiveItem}
+            getNameOfItem={this.getNameOfItem}
+          />
+        </Section>
+        {/* <Section title="Statistics">
+          {this.countTotalFeedback() === 0 ? (
+            <Notification message="No feedback given"></Notification>
+          ) : (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          )}
+        </Section> */}
+      </>
+    );
+  }
 }
+
+export default App;
