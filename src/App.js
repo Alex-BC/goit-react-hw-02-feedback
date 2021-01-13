@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Section from "./components/Section/Section.jsx";
-import FeedbackOptions from "./components/Feedback/FeedbackOptions.jsx";
+import FeedbackOptions from "./components/FeedbackOptions/FeedbackOptions.jsx";
+import Statistics from "./components/Statistics/Statistics.jsx";
+import Notification from "./components/Notification/Notification.jsx";
 
 class App extends Component {
   state = {
@@ -37,7 +39,7 @@ class App extends Component {
             getNameOfItem={this.getNameOfItem}
           />
         </Section>
-        {/* <Section title="Statistics">
+        <Section title="Statistics">
           {this.countTotalFeedback() === 0 ? (
             <Notification message="No feedback given"></Notification>
           ) : (
@@ -49,7 +51,7 @@ class App extends Component {
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           )}
-        </Section> */}
+        </Section>
       </>
     );
   }
